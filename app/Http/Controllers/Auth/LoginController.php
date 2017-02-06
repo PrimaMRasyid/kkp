@@ -36,4 +36,19 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    /**
+     * Handle an authentication attempt.
+     *
+     * @return Response
+     */
+    public function authenticated()
+    {
+        $user = auth()->user();
+
+        if ( ! $user->is_approved ) {
+            auth()->logout();
+            return view('need_approval');
+        }
+    }
 }

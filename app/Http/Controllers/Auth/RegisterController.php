@@ -23,13 +23,6 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -51,6 +44,13 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'alamat' => 'required',
+            'no_id' => 'required',
+            'no_npwp' => 'required',
+            'no_skib' => 'required',
+            'tgl_skib' => 'required',
+            'no_surveilance' => 'required',
+            'tgl_surveilance' => 'required',
         ]);
     }
 
@@ -66,6 +66,23 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'alamat' => $data['alamat'],
+            'no_id' => $data['no_id'],
+            'no_npwp' => $data['no_npwp'],
+            'no_skib' => $data['no_skib'],
+            'tgl_skib' => $data['tgl_skib'],
+            'no_surveilance' => $data['no_surveilance'],
+            'tgl_surveilance' => $data['tgl_surveilance']
         ]);
+    }
+
+    /**
+     * Where to redirect users after registration.
+     *
+     */
+    protected function redirectTo()
+    {
+        auth()->logout();
+        return route('need_approval');
     }
 }

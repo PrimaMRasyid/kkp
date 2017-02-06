@@ -12,7 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <!-- Fontawesom -->
+    <script src="https://use.fontawesome.com/e1f55f928f.js"></script>
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([

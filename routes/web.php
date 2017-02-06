@@ -14,11 +14,22 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/need_approval', function(){
+	return view('need_approval');
+})->name('need_approval');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
+	Route::get('login', 'AuthController@showLoginForm');
+	Route::post('login','AuthController@login')->name('admin.login');
+
+	Route::group(['middleware' => ['admin']], function(){
+		Route::get('/', 'HomeController@index');
+		Route::get('user', 'UserController@index')->name('user');
+		Route::get('user/show/{id}', 'UserController@show')->name('user.show');
+	});
+});

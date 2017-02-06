@@ -15,7 +15,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'alamat', 'no_id', 'no_npwp', 'no_skib', 'tgl_skib', 'no_surveilance', 'tgl_surveilance'
+    ];
+
+    protected $cast = [
+        'is_admin' => 'boolean',
+        'is_approved' => 'boolean',
     ];
 
     /**
@@ -26,4 +31,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
+
+    public function isApproved()
+    {
+        return $this->is_approved ? 'Yes' : 'No';
+    }
 }
