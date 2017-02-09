@@ -21,4 +21,13 @@ class UserController extends Controller
 
     	return view('admin.user.show', compact('user'));
     }
+
+    public function approve(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+
+        $user->approve();
+
+        return redirect('/admin/user');
+    }
 }

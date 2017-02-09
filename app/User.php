@@ -15,12 +15,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'alamat', 'no_id', 'no_npwp', 'no_skib', 'tgl_skib', 'no_surveilance', 'tgl_surveilance'
+        'name', 'email', 'password', 'alamat', 'no_id', 'no_npwp', 'no_skib', 'tgl_skib', 'no_surveilance', 'tgl_surveilance', 'role'
     ];
 
     protected $cast = [
         'is_admin' => 'boolean',
         'is_approved' => 'boolean',
+        'role' => 'boolean'
     ];
 
     /**
@@ -37,8 +38,20 @@ class User extends Authenticatable
         return $this->is_admin;
     }
 
+    public function isUserlab()
+    {
+        return $this->role;
+    }
+
     public function isApproved()
     {
         return $this->is_approved ? 'Yes' : 'No';
+    }
+
+    public function approve()
+    {
+        $this->is_approved = true;
+
+        $this->save();
     }
 }

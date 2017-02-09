@@ -19,13 +19,13 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-
+    protected $guards = ['auth'];
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -50,5 +50,12 @@ class LoginController extends Controller
             auth()->logout();
             return view('need_approval');
         }
+
+        if ( $user->isUserlab() ) {
+            $this->guards = array_merge($this->guards, [
+                'userlab'
+            ]);
+        }
     }
+
 }

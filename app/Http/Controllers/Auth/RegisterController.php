@@ -62,6 +62,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $role = explode('lab/', $data['role']);
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -72,7 +74,8 @@ class RegisterController extends Controller
             'no_skib' => $data['no_skib'],
             'tgl_skib' => $data['tgl_skib'],
             'no_surveilance' => $data['no_surveilance'],
-            'tgl_surveilance' => $data['tgl_surveilance']
+            'tgl_surveilance' => $data['tgl_surveilance'],
+            'role' => count($role) == 2
         ]);
     }
 
