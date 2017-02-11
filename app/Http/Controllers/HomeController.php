@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Transaction;
 use Illuminate\Http\Request;
+use Milon\Barcode\DNS1D;
 
 class HomeController extends Controller
 {
@@ -32,6 +33,14 @@ class HomeController extends Controller
         $formData = Transaction::all();
         
         return view('dashboard_user', compact('formData'));
+    }
+
+    public function detail($id)
+    {
+        $form = Transaction::findOrFail($id);
+        $generate = new DNS1D;
+        $barcode = $generate->getBarcodeHTML($form->id, "C39");
+        return view('form', compact('form', 'barcode'));
     }
 
     public function add()

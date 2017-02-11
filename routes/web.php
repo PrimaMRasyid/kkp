@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
+use Milon\Barcode\DNS1D;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,16 +17,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/need_approval', function(){
-	return view('need_approval');
-})->name('need_approval');
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-Route::get('/add', 'HomeController@add')->name('form.add');
-Route::post('/add', 'HomeController@store')->name('form.store');
-
-Auth::routes();
 
 Route::group(['prefix' => 'lab'], function(){
 	Route::get('/', function(){
@@ -31,12 +24,27 @@ Route::group(['prefix' => 'lab'], function(){
 	});
 	Auth::routes();
 		
-	Route::group(['middleware' => ['userlab']], function(){
-		Route::get('home', function(){
-			return view('home');
-		});
+	Route::group(['middleware' => ['userlab'], 'namespace' => 'Lab'], function(){
+		Route::get('home', 'HomeController@index')->name('lab.home');
+		Route::get('show/{id}', 'HomeController@detail')->name('lab.detail');
+		Route::get('paid/{id}', 'HomeController@setPaid')->name('lab.paid');
 	});
 });
+
+Route::get('/need_approval', function(){
+	return view('need_approval');
+})->name('need_approval');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home.index');
+Route::get('/add', 'HomeController@add')->name('form.add');
+Route::post('/add', 'HomeController@store')->name('form.store');
+Route::get('/show/{id}', 'HomeController@detail')->name('form.detail');
+Route::get('barcode', function(){
+	
+});
+
+Auth::routes();
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 	Route::get('login', 'AuthController@showLoginForm');
