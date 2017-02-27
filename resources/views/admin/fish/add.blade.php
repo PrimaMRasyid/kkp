@@ -107,6 +107,24 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('fish_type') ? ' has-error' : '' }}">
+                            <label for="fish_type" class="col-md-3 control-label">Fish Type</label>
+
+                            <div class="col-md-7">
+                                <select name="fish_type" class="form-control">
+                                    <option>-- Select Fish Type --</option>
+                                    <option value="1">Need Testing</option>
+                                    <option value="2">Prohibited</option>
+                                </select>
+
+                                @if ($errors->has('fish_type'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('fish_type') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-5">
                                 <button type="submit" class="btn btn-primary">

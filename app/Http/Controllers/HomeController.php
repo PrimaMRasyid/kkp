@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransactionRequest;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Milon\Barcode\DNS1D;
@@ -30,7 +31,7 @@ class HomeController extends Controller
         } else if ( auth()->user()->isAdmin() ) {
             return redirect('/admin');
         }
-        $formData = Transaction::all();
+        $formData = Transaction::where('sender_id','=',auth()->user()->id)->get();
         
         return view('dashboard_user', compact('formData'));
     }
@@ -49,7 +50,7 @@ class HomeController extends Controller
         return view('add_form', compact('user'));
     }
 
-    public function store(Request $request)
+    public function store(TransactionRequest $request)
     {
         $trx = new Transaction;
         $trx->create($request->except('_token'));

@@ -9,6 +9,7 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('form.store') }}">
                         {{ csrf_field() }}
+                        {{ Form::hidden('sender_id', Auth::user()->id) }}
                         <div class="form-group{{ $errors->has('sender') ? ' has-error' : '' }}">
                             <label for="sender" class="col-md-3 control-label">Pengirim</label>
 

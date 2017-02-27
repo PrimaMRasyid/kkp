@@ -17,7 +17,8 @@ class Transaction extends Model
     	'ukuran',
     	'qty',
     	'satuan',
-    	'keterangan'
+    	'keterangan',
+        'sender_id'
     ];
 
     /**

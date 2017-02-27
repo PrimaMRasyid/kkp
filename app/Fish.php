@@ -15,6 +15,7 @@ class Fish extends Model
     	'size',
     	'qty',
     	'unit',
-    	'value'
+    	'value',
+        'fish_type'
     ];
 }

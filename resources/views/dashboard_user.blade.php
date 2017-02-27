@@ -24,6 +24,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Umum</th>
+                                <th>Nama Latin</th>
                                 <th>Ukuran</th>
                                 <th>Qty</th>
                                 <th>Status Pembayaran</th>
@@ -31,8 +32,9 @@
                             </tr>
                                 @forelse($formData as $data)
                                 <tr>
-                                    <td></td>
+                                    <td>#{!! $data->id !!}</td>
                                     <td>{!! $data->nama_umum !!}</td>
+                                    <td>{!! $data->fish->latin_name !!}</td>
                                     <td>{!! $data->ukuran !!}</td>
                                     <td>{!! $data->qty !!}</td>
                                     <td>{!! $data->status_pembayaran ? 'Paid' : 'Unpaid' !!}</td>

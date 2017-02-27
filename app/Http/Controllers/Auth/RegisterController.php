@@ -64,7 +64,7 @@ class RegisterController extends Controller
     {
         $role = explode('lab/', $data['role']);
         
-        return User::create([
+        $create = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -77,6 +77,18 @@ class RegisterController extends Controller
             'tgl_surveilance' => $data['tgl_surveilance'],
             'role' => count($role) == 2
         ]);
+
+        if ( $create && $role == 1) {
+            Mail::send('emails.thank_you', [], function ($message) use ($user) {
+
+                $message->from('boboiboi055@gmail.com', 'Permohonan Registrasi');
+
+                $message->to($user->email)->subject('Permohonan registrasi anda sedang diproses.');
+
+            });
+        }
+
+        return $create;
     }
 
     /**
