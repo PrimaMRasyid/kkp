@@ -27,6 +27,7 @@
                                 <th>Nama Latin</th>
                                 <th>Ukuran</th>
                                 <th>Qty</th>
+                                <th>Status Test</th>
                                 <th>Status Pembayaran</th>
                                 <th>Detail</th>
                             </tr>
@@ -37,6 +38,7 @@
                                     <td>{!! $data->fish->latin_name !!}</td>
                                     <td>{!! $data->ukuran !!}</td>
                                     <td>{!! $data->qty !!}</td>
+                                    <td>{!! $data->fish->type !!}</td>
                                     <td>{!! $data->status_pembayaran ? 'Paid' : 'Unpaid' !!}</td>
                                     <td><a href="{!! route('form.detail', ['id' => $data->id]) !!}">Detail</a></td>
                                 <tr>

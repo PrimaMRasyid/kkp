@@ -70,7 +70,8 @@
                             <label for="nama_umum" class="col-md-3 control-label">Nama Umum</label>
 
                             <div class="col-md-7">
-                                <input id="nama_umum" type="text" class="form-control" name="nama_umum" value="{{ old('nama_umum') }}" required autofocus>
+                                <!-- <input id="nama_umum" type="text" class="form-control" name="nama_umum" value="{{ old('nama_umum') }}" required autofocus> -->
+                                {!! Form::select('nama_umum', [''=>'Select Fish'] + $fishs, '', ['class'=>'form-control']) !!}
 
                                 @if ($errors->has('nama_umum'))
                                     <span class="help-block">

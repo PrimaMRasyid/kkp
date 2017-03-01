@@ -115,6 +115,7 @@
                                     <option>-- Select Fish Type --</option>
                                     <option value="1">Need Testing</option>
                                     <option value="2">Prohibited</option>
+                                    <option value="3">Not Need Testing</option>
                                 </select>
 
                                 @if ($errors->has('fish_type'))

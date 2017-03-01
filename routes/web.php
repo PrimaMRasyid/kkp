@@ -18,6 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('test_email', function () {
+    Mail::send('emails.welcome', [], function ($message) {
+
+        $message->from('boboiboi055@gmail.com', 'Activated Account');
+
+        $message->to('hahahihi123@mailinator.com')->subject('Congratulations!. Your Account Has Been Activated');
+
+    });
+});
+
 Route::group(['prefix' => 'lab'], function(){
 	Route::get('/', function(){
 		return view('welcome');

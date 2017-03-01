@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Fish;
 use App\Http\Requests\TransactionRequest;
 use App\Transaction;
 use Illuminate\Http\Request;
@@ -47,7 +48,9 @@ class HomeController extends Controller
     public function add()
     {
         $user = auth()->user();
-        return view('add_form', compact('user'));
+        $fishs = Fish::all()->pluck('name','name')->toArray();
+        
+        return view('add_form', compact('user','fishs'));
     }
 
     public function store(TransactionRequest $request)

@@ -32,7 +32,7 @@
                             <dd>{!! $fish->value !!}</dd>
 
                             <dt>Fish Type</dt>
-                            <dd>{!! $fish->fish_type == 1 ? 'Need Testing' : 'Prohibited' !!}</dd>
+                            <dd>{!! $fish->type !!}</dd>
                             <hr/>
                             <dt></dt>
                             <dd>

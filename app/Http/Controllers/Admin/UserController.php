@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-    	$users = User::where('is_admin','=',false)->get();
+    	$users = User::where('is_admin','=',false)->where('role','=',0)->get();
 
     	return view('admin.user.index', compact('users'));
     }

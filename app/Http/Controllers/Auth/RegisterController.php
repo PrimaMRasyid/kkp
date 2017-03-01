@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -78,12 +79,12 @@ class RegisterController extends Controller
             'role' => count($role) == 2
         ]);
 
-        if ( $create && $role == 1) {
-            Mail::send('emails.thank_you', [], function ($message) use ($user) {
+        if ( $create ) {
+            Mail::send('emails.thank_you', [], function ($message) use ($create) {
 
                 $message->from('boboiboi055@gmail.com', 'Permohonan Registrasi');
 
-                $message->to($user->email)->subject('Permohonan registrasi anda sedang diproses.');
+                $message->to($create->email)->subject('Permohonan registrasi anda sedang diproses.');
 
             });
         }
