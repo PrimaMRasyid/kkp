@@ -38,6 +38,29 @@ Route::group(['prefix' => 'lab'], function(){
 		Route::get('home', 'HomeController@index')->name('lab.home');
 		Route::get('show/{id}', 'HomeController@detail')->name('lab.detail');
 		Route::get('paid/{id}', 'HomeController@setPaid')->name('lab.paid');
+		Route::get('test/{id}', 'HomeController@setDoneTest')->name('lab.test');
+	});
+});
+
+Route::group(['prefix' => 'bank', 'namespace' => 'Bank'], function(){
+	Route::get('login', 'AuthController@showLoginForm');
+	Route::post('login','AuthController@login')->name('bank.login');
+		
+	Route::group(['middleware' => ['userbank']], function(){
+		Route::get('/', 'HomeController@index')->name('bank.home');
+		Route::get('show/{id}', 'HomeController@detail')->name('bank.detail');
+		Route::get('paid/{id}', 'HomeController@setPaid')->name('bank.paid');
+	});
+});
+
+Route::group(['prefix' => 'pabean', 'namespace' => 'Pabean'], function(){
+	Route::get('login', 'AuthController@showLoginForm');
+	Route::post('login','AuthController@login')->name('pabean.login');
+		
+	Route::group(['middleware' => ['userpabean']], function(){
+		Route::get('/', 'HomeController@index')->name('pabean.home');
+		Route::get('show/{id}', 'HomeController@detail')->name('pabean.detail');
+		Route::get('paid/{id}', 'HomeController@setPaid')->name('pabean.paid');
 	});
 });
 

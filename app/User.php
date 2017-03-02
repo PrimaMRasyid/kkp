@@ -7,6 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    const USER_LAB = 1;
+    const USER_BANK = 2;
+    const USER_PABEAN = 3;
     use Notifiable;
 
     /**
@@ -40,7 +43,17 @@ class User extends Authenticatable
 
     public function isUserlab()
     {
-        return $this->role;
+        return $this->role == self::USER_LAB;
+    }
+
+    public function isUserbank()
+    {
+        return $this->role == self::USER_BANK;
+    }
+
+    public function isUserpabean()
+    {
+        return $this->role == self::USER_PABEAN;
     }
 
     public function isApproved()

@@ -30,7 +30,7 @@
                                     <td>{!! $data->ukuran !!}</td>
                                     <td>{!! $data->qty !!}</td>
                                     <td>{!! $data->status_pembayaran ? 'Paid' : 'Unpaid' !!}</td>
-                                    <td><a href="{!! route('lab.detail', ['id' => $data->id]) !!}">Detail</a></td>
+                                    <td><a href="{!! route('pabean.detail', ['id' => $data->id]) !!}">Detail</a></td>
                                 <tr>
                                 @empty
                                 <tr>

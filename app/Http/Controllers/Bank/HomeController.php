@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Lab;
+namespace App\Http\Controllers\Bank;
 
 use App\Http\Controllers\Controller;
 use App\Transaction;
@@ -11,9 +11,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-    	$transactions = Transaction::orderBy('status_pembayaran', 'ASC')->get();
+    	$transactions = Transaction::orderBy('status_pembayaran', 'ASC')
+            ->get();
 
-    	return view('dashboard_lab', compact('transactions'));
+    	return view('dashboard_bank', compact('transactions'));
     }
 
     public function detail($id)
@@ -21,7 +22,7 @@ class HomeController extends Controller
     	$form = Transaction::findOrFail($id);
         $generate = new DNS1D;
         $barcode = $generate->getBarcodeHTML($form->id, "C39");
-        return view('form_lab', compact('form', 'barcode'));
+        return view('form_bank', compact('form', 'barcode'));
     }
 
     public function setPaid($id)
@@ -31,14 +32,5 @@ class HomeController extends Controller
     	$form->save();
 
     	return redirect('home');
-    }
-
-    public function setDoneTest($id)
-    {
-        $form = Transaction::findOrFail($id);
-        $form->status_test = true;
-        $form->save();
-
-        return redirect('home');
     }
 }
