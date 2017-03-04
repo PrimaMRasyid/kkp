@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Mail;
 
 class Transaction extends Model
 {
+    const UNTESTED = 2;
+    const DONE_TESTED = 1;
+    const UNPAID = 2;
+    const PAID = 1;
+
     protected $fillable = [
     	'sender',
     	'sender_address',
@@ -35,7 +40,8 @@ class Transaction extends Model
         static::created(function($trx){
             $user = $trx->user;
             if ($trx->fish()->where('fish_type','=',Fish::NEED_TESTING)->first()) {
-                $trx->status_pembayaran = false;
+                $trx->status_pembayaran = self::UNPAID;
+                $trx->status_test = self::UNTESTED;
 
                 $saved = $trx->save();
                 if ($saved) {
@@ -47,14 +53,15 @@ class Transaction extends Model
 
                     });
                 }
+            } else {
+                Mail::send('emails.not_need_paid', [], function ($message) use ($user) {
+
+                    $message->from('boboiboi055@gmail.com', 'Not Need Paid');
+
+                    $message->to($user->email)->subject('Not Need Paid');
+
+                });
             }
-            Mail::send('emails.not_need_paid', [], function ($message) use ($user) {
-
-                $message->from('boboiboi055@gmail.com', 'Not Need Paid');
-
-                $message->to($user->email)->subject('Not Need Paid');
-
-            });
         });
     }
 
@@ -66,5 +73,43 @@ class Transaction extends Model
     public function user()
     {
         return $this->hasOne('App\User', 'id', 'sender_id');
+    }
+
+    public function fishNeedTesting()
+    {
+        return $this->join('fishs', 'nama_umum', '=', 'fishs.name')
+            ->where('fishs.fish_type','=', Fish::NEED_TESTING);
+    }
+
+    public function getTestingAttribute()
+    {
+        switch ($this->status_test) {
+            case self::UNTESTED :
+                return 'Belum di test';
+                break;
+            case self::DONE_TESTED :
+                return 'Sudah di test';
+                break;
+            
+            default:
+                return 'Tdk perlu test';
+                break;
+        }
+    }
+
+    public function getPaidAttribute()
+    {
+        switch ($this->status_pembayaran) {
+            case self::UNPAID :
+                return 'Belum di bayar';
+                break;
+            case self::PAID :
+                return 'Sudah di bayar';
+                break;
+            
+            default:
+                return 'Tdk perlu bayar';
+                break;
+        }
     }
 }

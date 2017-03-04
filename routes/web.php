@@ -60,6 +60,7 @@ Route::group(['prefix' => 'pabean', 'namespace' => 'Pabean'], function(){
 	Route::group(['middleware' => ['userpabean']], function(){
 		Route::get('/', 'HomeController@index')->name('pabean.home');
 		Route::get('show/{id}', 'HomeController@detail')->name('pabean.detail');
+		Route::post('cari', 'HomeController@cari')->name('pabean.cari');
 		Route::get('paid/{id}', 'HomeController@setPaid')->name('pabean.paid');
 	});
 });

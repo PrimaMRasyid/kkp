@@ -43,13 +43,12 @@
                             <hr/>
                             <h4 class="text-center">Detail Penerima</h4>
                             <dt>Penerima</dt>
-                            <dd>{!! auth()->user()->isUserlab() ? auth()->user()->name : $form->receiver !!}</dd>
+                            <dd>{!! $form->receiver !!}</dd>
                             <dt>Alamat Penerima</dt>
-                            <dd>{!! auth()->user()->isUserlab() ? auth()->user()->alamat : $form->receiver_address !!}</dd>
+                            <dd>{!! $form->receiver_address !!}</dd>
                             <dt></dt>
                             <dd>
-                            {!! auth()->user()->isUserbank() ? '<a href="'.route('lab.paid', ['id' => $form->id]).'" class="btn btn-sm btn-success">Set Paid</a>' : '' !!}
-                            {!! auth()->user()->isUserlab() ? '<a href="'.route('lab.paid', ['id' => $form->id]).'" class="btn btn-sm btn-success">Ubah sudah test</a>' : '' !!}
+                            {!! auth()->user()->isUserbank() ? '<a href="'.route('bank.paid', ['id' => $form->id]).'" class="btn btn-sm btn-success">Set Paid</a>' : '' !!}
                             <a href="{!! route('bank.home') !!}" class="btn btn-sm btn-default pull-right" style="margin-right: 10px">Go Back</a>
                             </dd>
                         </dl>

@@ -18,18 +18,20 @@
                                 <th>Nama Umum</th>
                                 <th>Ukuran</th>
                                 <th>Qty</th>
+                                <th>Status Test</th>
                                 <th>Status Pembayaran</th>
                                 <th>Detail</th>
                             </tr>
                                 @forelse($transactions as $data)
                                 <tr>
-                                    <td></td>
+                                    <td>#{!! $data->id !!}</td>
                                     <td>{!! $data->sender !!}</td>
                                     <td>{!! $data->fish['latin_name'] !!}</td>
                                     <td>{!! $data->nama_umum !!}</td>
                                     <td>{!! $data->ukuran !!}</td>
                                     <td>{!! $data->qty !!}</td>
-                                    <td>{!! $data->status_pembayaran ? 'Paid' : 'Unpaid' !!}</td>
+                                    <td>{!! $data->Testing !!}</td>
+                                    <td>{!! $data->Paid !!}</td>
                                     <td><a href="{!! route('bank.detail', ['id' => $data->id]) !!}">Detail</a></td>
                                 <tr>
                                 @empty

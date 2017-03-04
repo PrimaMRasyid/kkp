@@ -25,6 +25,11 @@ class HomeController extends Controller
         return view('form_pabean', compact('form', 'barcode'));
     }
 
+    public function cari(Request $request)
+    {
+        return redirect()->route('pabean.detail', ['id' => $request->get('id_transaksi')]);
+    }
+
     public function setPaid($id)
     {
     	$form = Transaction::findOrFail($id);

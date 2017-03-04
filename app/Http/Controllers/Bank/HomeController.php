@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Bank;
 use App\Http\Controllers\Controller;
 use App\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Milon\Barcode\DNS1D;
 
 class HomeController extends Controller
 {
     public function index()
     {
-    	$transactions = Transaction::orderBy('status_pembayaran', 'ASC')
+    	$transactions = Transaction::orderBy('status_pembayaran', 'DESC')
             ->get();
 
     	return view('dashboard_bank', compact('transactions'));
@@ -28,9 +29,20 @@ class HomeController extends Controller
     public function setPaid($id)
     {
     	$form = Transaction::findOrFail($id);
-    	$form->status_pembayaran = true;
-    	$form->save();
+        $user = $form->user;
+    	$form->status_pembayaran = Transaction::PAID;
+    	$paid = $form->save();
 
-    	return redirect('home');
+        if ( $paid ) {
+            Mail::send('emails.done_paid', [], function ($message) use ($user) {
+
+                $message->from('boboiboi055@gmail.com', 'Tagihan sudah dibayar. Terima Kasih');
+
+                $message->to($user->email)->subject('Tagihan sudah dibayar. Terima Kasih');
+
+            });
+        }
+
+    	return redirect()->route('bank.home');
     }
 }
