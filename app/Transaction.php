@@ -5,6 +5,7 @@ namespace App;
 use App\Fish;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
+use Milon\Barcode\DNS1D;
 
 class Transaction extends Model
 {
@@ -12,6 +13,8 @@ class Transaction extends Model
     const DONE_TESTED = 1;
     const UNPAID = 2;
     const PAID = 1;
+    const UNSCAN = 0;
+    const SCANNED = 1;
 
     protected $fillable = [
     	'sender',
@@ -54,7 +57,10 @@ class Transaction extends Model
                     });
                 }
             } else {
-                Mail::send('emails.not_need_paid', [], function ($message) use ($user) {
+                $generate = new DNS1D;
+                $barcode = $generate->getBarcodeHTML($trx->id, "C39");
+
+                Mail::send('emails.not_need_paid', ['barcode' => $barcode], function ($message) use ($user) {
 
                     $message->from('boboiboi055@gmail.com', 'Not Need Paid');
 
@@ -79,6 +85,18 @@ class Transaction extends Model
     {
         return $this->join('fishs', 'nama_umum', '=', 'fishs.name')
             ->where('fishs.fish_type','=', Fish::NEED_TESTING);
+    }
+
+    public function setScan()
+    {
+        $this->status_scan = self::SCANNED;
+
+        $this->save();
+    }
+
+    public function getScanAttribute()
+    {
+        return $this->status_scan ? 'Sudah Scan' : 'Belum Scan';
     }
 
     public function getTestingAttribute()
@@ -111,5 +129,13 @@ class Transaction extends Model
                 return 'Tdk perlu bayar';
                 break;
         }
+    }
+
+    public function getBarcodeAttribute()
+    {
+        $generate = new DNS1D;
+        $barcode = $generate->getBarcodeHTML($this->id, "C39");
+
+        return $barcode;
     }
 }

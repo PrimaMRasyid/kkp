@@ -81,8 +81,8 @@
                 <div class="links">
                     <a href="login">User</a>
                     <a href="admin/login">Admin</a>
-                    <a href="lab/login">Lab</a>
                     <a href="bank/login">Bank</a>
+                    <a href="lab/login">Lab</a>
                     <a href="pabean/login">Pabean</a>
                 </div>
             </div>

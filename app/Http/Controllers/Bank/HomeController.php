@@ -12,7 +12,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-    	$transactions = Transaction::orderBy('status_pembayaran', 'DESC')
+    	$transactions = Transaction::where('status_pembayaran','=',Transaction::UNPAID)
+            ->orderBy('status_pembayaran', 'DESC')
             ->get();
 
     	return view('dashboard_bank', compact('transactions'));

@@ -11,7 +11,9 @@
                     <div class="row">
                         <dl class="dl-horizontal">
                           <div class="col-md-offset-5">
+                          @if($form->status_test == 1)
                             {!! $barcode !!}
+                          @endif
                             <span class="small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form #{{ $form->id }}</span>
                           </div>
                           <dt>Pengirim</dt>
@@ -43,9 +45,9 @@
                             <hr/>
                             <h4 class="text-center">Detail Penerima</h4>
                             <dt>Penerima</dt>
-                            <dd>{!! auth()->user()->isUserlab() ? auth()->user()->name : $form->receiver !!}</dd>
+                            <dd>{!! $form->receiver !!}</dd>
                             <dt>Alamat Penerima</dt>
-                            <dd>{!! auth()->user()->isUserlab() ? auth()->user()->alamat : $form->receiver_address !!}</dd>
+                            <dd>{!! $form->receiver_address !!}</dd>
                             <dt></dt>
                             <dd>
                             {!! auth()->user()->isUserbank() ? '<a href="'.route('bank.paid', ['id' => $form->id]).'" class="btn btn-sm btn-success">Set Paid</a>' : '' !!}

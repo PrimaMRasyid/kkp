@@ -12,7 +12,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::orderBy('status_pembayaran', 'DESC')->get();
+        $transactions = Transaction::where('status_pembayaran','=',Transaction::PAID)
+            ->where('status_test','=',Transaction::UNTESTED)
+            ->orderBy('status_pembayaran', 'DESC')->get();
 
     	return view('dashboard_lab', compact('transactions'));
     }
@@ -38,8 +40,6 @@ class HomeController extends Controller
     {
         $form = Transaction::findOrFail($id);
         $user = $form->user;
-        $form->receiver = auth()->user()->name;
-        $form->receiver_address = auth()->user()->alamat;
         $form->status_test = Transaction::DONE_TESTED;
         $generate = new DNS1D;
         $barcode = $generate->getBarcodeHTML($form->id, "C39");

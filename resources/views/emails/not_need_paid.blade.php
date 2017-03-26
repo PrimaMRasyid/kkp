@@ -13,6 +13,9 @@
 
 <div>
     Tidak diperlukan pengambilan sample dan pembayaran.
+    <br>
+    <br>
+    <center>{!! $barcode !!}</center>
 </div>
 
 </body>

@@ -11,7 +11,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-    	$transactions = Transaction::orderBy('status_pembayaran', 'ASC')
+    	$transactions = Transaction::where('status_test','=',Transaction::DONE_TESTED)
+            ->orWhere('status_test','=',0)
+            ->orderBy('status_pembayaran', 'ASC')
             ->get();
 
     	return view('dashboard_pabean', compact('transactions'));
@@ -22,6 +24,7 @@ class HomeController extends Controller
     	$form = Transaction::findOrFail($id);
         $generate = new DNS1D;
         $barcode = $generate->getBarcodeHTML($form->id, "C39");
+        $form->setScan();
         return view('form_pabean', compact('form', 'barcode'));
     }
 

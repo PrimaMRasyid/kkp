@@ -137,6 +137,34 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('receiver') ? ' has-error' : '' }}">
+                            <label for="receiver" class="col-md-3 control-label">Penerima</label>
+
+                            <div class="col-md-7">
+                                <input id="receiver" type="text" class="form-control" name="receiver" value="{{ old('receiver') }}" required autofocus>
+
+                                @if ($errors->has('receiver'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('receiver') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('receiver_address') ? ' has-error' : '' }}">
+                            <label for="receiver_address" class="col-md-3 control-label">Alamat Penerima</label>
+
+                            <div class="col-md-7">
+                                <input id="receiver_address" type="text" class="form-control" name="receiver_address" value="{{ old('receiver_address') }}" required autofocus>
+
+                                @if ($errors->has('receiver_address'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('receiver_address') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-5">
                                 <button type="submit" class="btn btn-primary">

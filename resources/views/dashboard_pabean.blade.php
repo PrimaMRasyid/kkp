@@ -31,7 +31,8 @@
                                 <th>Ukuran</th>
                                 <th>Qty</th>
                                 <th>Status Test</th>
-                                <th>Status Pembayaran</th>
+                                <th>Status Scan</th>
+                                <th>Barcode</th>
                                 <th>Detail</th>
                             </tr>
                                 @forelse($transactions as $data)
@@ -43,7 +44,8 @@
                                     <td>{!! $data->ukuran !!}</td>
                                     <td>{!! $data->qty !!}</td>
                                     <td>{!! $data->Testing !!}</td>
-                                    <td>{!! $data->Paid !!}</td>
+                                    <td>{!! $data->Scan !!}</td>
+                                    <td>{!! $data->Barcode !!}</td>
                                     <td><a href="{!! route('pabean.detail', ['id' => $data->id]) !!}">Detail</a></td>
                                 <tr>
                                 @empty
